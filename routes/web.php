@@ -232,6 +232,20 @@ Route::get('/user/pivot',function(){
 
 });
 
+use App\Country;
+
+//Has Many Through
+Route::get('/post/{id}/country', function($id){
+
+    $country = Country::find($id);
+
+    foreach ($country->posts as $post){
+        echo $post->title. "<br>";
+    }
+
+
+});
+
 
 
 
