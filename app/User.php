@@ -51,7 +51,12 @@ class User extends Authenticatable
 //    }
     //Intermediate Table with pivot
     public function roles(){
-        return $this->belongsToMany('App\Role')->withTimestamps();
+        return $this->belongsToMany('App\Role')->withPivot('created_at');
+    }
+
+    //one to one polymorphic
+    public function image(){
+        return $this->morphOne('App\Image', 'imageable');
     }
 
 

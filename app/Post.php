@@ -27,4 +27,19 @@ class Post extends Model
         return $this->belongsTo('App\User');
     }
 
+    //one to one polymorphic
+    public function image(){
+        return $this->morphOne('App\Image', 'imageable');
+    }
+
+    //one to many polymorphic
+    public function comments(){
+        return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    //many to many polymorphic
+    public function tags(){
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
+
 }

@@ -1,5 +1,10 @@
 <?php
 
+use App\Tag;
+use Illuminate\Support\Facades\DB;
+use App\Post;
+use App\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,7 +59,6 @@
 |--------------------------------------------------------------------------
 */
 
-use Illuminate\Support\Facades\DB;
 
 //Route::get('/insert', function(){
 //
@@ -95,7 +99,6 @@ use Illuminate\Support\Facades\DB;
 |--------------------------------------------------------------------------
 */
 
-//use App\Post;
 //
 //Route::get('/read', function(){
 //
@@ -182,9 +185,9 @@ use Illuminate\Support\Facades\DB;
 |--------------------------------------------------------------------------
 */
 
-use App\User;
-use App\Post;
-
+//use App\User;
+//use App\Post;
+//
 ////ONE TO ONE RELATIONSHIP
 //Route::get('/user/{id}/post', function($id){
 //
@@ -208,45 +211,94 @@ use App\Post;
 //    }
 //
 //});
-
-//MANY TO MANY RELATIONSHIPS
-Route::get('/user/{id}/post', function($id){
-
-    $user = User::find($id);
-
-    foreach ($user->roles as $role){
-        return $role->name;
-    }
-
-});
-//Intermediate Table Columns
-Route::get('/user/pivot',function(){
-
-    $user = User::find(1);
-
-    foreach ($user->roles as $role){
-        echo $role->pivot->created_at;
-        echo "<br>";
-        echo $role->pivot->updated_at;
-    }
-
-});
-
-use App\Country;
-
-//Has Many Through
-Route::get('/post/{id}/country', function($id){
-
-    $country = Country::find($id);
-
-    foreach ($country->posts as $post){
-        echo $post->title. "<br>";
-    }
+//
+////MANY TO MANY RELATIONSHIPS
+//Route::get('/user/{id}/post', function($id){
+//
+//    $user = User::find($id);
+//
+//    foreach ($user->roles as $role){
+//        return $role->name;
+//    }
+//
+//});
+////Intermediate Table Columns
+//Route::get('/user/pivot',function(){
+//
+//    $user = User::find(1);
+//
+//    foreach ($user->roles as $role){
+//        echo $role->pivot->created_at;
+//        echo "<br>";
+//        echo $role->pivot->updated_at;
+//    }
+//
+//});
 
 
-});
 
+/*
+|--------------------------------------------------------------------------
+| ELOQUENT POLYMORPHIC
+|--------------------------------------------------------------------------
+*/
 
+//use App\Country;
+
+////Has Many Through
+//Route::get('/post/{id}/country', function($id){
+//
+//    $country = Country::find($id);
+//
+//    foreach ($country->posts as $post){
+//        echo $post->title. "<br>";
+//    }
+//
+//});
+//
+//
+////one to one polymorphic
+//Route::get('/morphic/post', function(){
+//
+////    $post = Post::find(1);
+//
+////    $user = User::find(2);
+//
+//    $image = App\Image::find(1);
+//    $image = $image->imageable;
+//
+////    $image = $user->image;
+//
+//    return $image;
+//
+//});
+//
+////one to many polymorphic
+//Route::get('/morphic/posts', function (){
+//
+//    $post = Post::find(1);
+////    $video = App\Video::find(2);
+//
+////    return App\Comment::find(1)->commentable;
+//
+//    foreach ($post->comments as $comment){
+//        echo $comment->body. "<br>";
+//    }
+//
+//});
+
+//
+//Route::get('/tag/post', function(){
+//
+////    $post = Post::find(2);
+//
+//    $tag = Tag::find(2);
+//
+//    foreach ($tag->videos as $post){
+//        echo $post->title;
+//    }
+//
+//});
 
 
 
