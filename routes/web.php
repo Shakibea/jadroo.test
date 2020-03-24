@@ -301,6 +301,9 @@ use App\User;
 //});
 
 
+Route::resource('/posts', 'PostsController');
+
+
 
 
 
