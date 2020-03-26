@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $post = Post::all();
+        $post = Post::latest()->get();
         return view('posts.index', compact('post'));
     }
 
@@ -36,8 +37,42 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
+
+        $input = $request->all();
+
+        if($file = $request->file('file')){
+
+           $name = $file->getClientOriginalName();
+
+            $file->move('images', $name);
+
+            $input['path'] = $name;
+        }
+
+        Post::create($input);
+
+//        $file = $request->file('file');
+//
+//        echo $file->getClientOriginalName();
+//
+//        echo "<br>";
+//
+//        echo $file->getSize();
+
+//       echo $file->getClientOriginalName();
+
+//        //this is for 5.2 or above
+//        $this->validate($request, [
+//            'title' => 'required'
+//        ]);
+
+//        //this is only for 5.8
+//        $request->validate([
+//            'title' => 'required'
+//        ]);
+
 //       return $request->all();
 //       return $request->get('title');
 //       return $request->title;
@@ -47,12 +82,12 @@ class PostsController extends Controller
 //        $post = $request->all();
 //        $post['title'] = $request->title;
 //        Post::create($request->all());
+//
+//        $post = new Post();
+//        $post->title = $request->title;
+//        $post->save();
 
-        $post = new Post();
-        $post->title = $request->title;
-        $post->save();
-
-        return redirect('/posts');
+//        return redirect('/posts');
 
     }
 

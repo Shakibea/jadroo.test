@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->morphOne('App\Image', 'imageable');
     }
 
+    public function getNameAttribute($value){
+        return strtoupper($value);
+    }
+
 
 
 }

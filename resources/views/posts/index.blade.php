@@ -8,6 +8,8 @@
 
         @foreach($post as $p)
 
+            <img height="100" src="{{$p->path}}" alt="">
+
             <li><a href="{{route('posts.show', $p->id)}}">{{$p->title}}</a></li>
 
         @endforeach

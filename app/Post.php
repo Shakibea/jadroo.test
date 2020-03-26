@@ -15,9 +15,12 @@ class Post extends Model
 
     protected $fillable = [
         'title',
-        'content'
+        'content',
+        'path'
     ];
 
+
+    public $directory = "/images/";
 
     use SoftDeletes;
 
@@ -40,6 +43,16 @@ class Post extends Model
     //many to many polymorphic
     public function tags(){
         return $this->morphToMany('App\Tag', 'taggable');
+    }
+
+    public function postQueryScope($query){
+
+        return $query->orderBy('id', 'asc')->get();
+
+    }
+
+    public function getPathAttribute($value){
+        return $this->directory . $value;
     }
 
 }
